@@ -1,4 +1,4 @@
-package com.example.spendingtrackerapp
+package com.example.spendingtrackerapp.core.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -11,7 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.spendingtrackerapp.ui.theme.SpendingTrackerAppTheme
+import com.example.spendingtrackerapp.core.presentation.ui.theme.SpendingTrackerAppTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
