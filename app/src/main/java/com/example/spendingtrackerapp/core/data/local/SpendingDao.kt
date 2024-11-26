@@ -22,6 +22,6 @@ interface SpendingDao {
     @Query("SELECT SUM(price) FROM  spendingentity")
     suspend fun getSpendBalance(): Double?
 
-    @Query("SELECT * FROM  spendingentity WHERE spendingId = :id")
+    @Query("DELETE FROM  spendingentity WHERE spendingId = :id")
     suspend fun deleteSpending(id: Int)
 }
