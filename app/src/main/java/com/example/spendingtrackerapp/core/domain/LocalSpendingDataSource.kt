@@ -14,7 +14,7 @@ interface LocalSpendingDataSource {
 
     suspend fun upsertSpending(spending: Spending)
 
-    suspend fun getSpendingBalance(): Double
+    suspend fun getSpendBalance(): Double
 
     suspend fun deleteSpending(id: Int)
 }

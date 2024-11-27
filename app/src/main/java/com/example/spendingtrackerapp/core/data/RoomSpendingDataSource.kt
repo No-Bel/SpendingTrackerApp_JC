@@ -44,7 +44,7 @@ class RoomSpendingDataSource(
         dao.upsertSpending(spending.toNewSpendingEntity())
 
 
-    override suspend fun getSpendingBalance(): Double =
+    override suspend fun getSpendBalance(): Double =
         dao.getSpendBalance() ?: 0.0
 
 

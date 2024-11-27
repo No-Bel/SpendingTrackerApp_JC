@@ -13,9 +13,11 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.spendingtrackerapp.balance.presentation.BalanceScreen
 import com.example.spendingtrackerapp.core.presentation.ui.theme.SpendingTrackerAppTheme
 import com.example.spendingtrackerapp.core.presentation.util.Background
 import com.example.spendingtrackerapp.core.presentation.util.Screen
+import com.example.spendingtrackerapp.spending_overview.presentation.SpendingOverviewScreenCore
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,12 +43,14 @@ class MainActivity : ComponentActivity() {
         ) {
 
             composable<Screen.SpendingOverview> {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(text = "Spending Overview")
-                }
+                SpendingOverviewScreenCore(
+                    onBalanceClick = {
+                        navController.navigate(Screen.Balance)
+                    },
+                    onAddSpendingClick = {
+                        navController.navigate(Screen.SpendingDetails)
+                    }
+                )
             }
 
             composable<Screen.SpendingDetails> {
@@ -59,7 +63,11 @@ class MainActivity : ComponentActivity() {
             }
 
             composable<Screen.Balance> {
-
+                BalanceScreen(
+                    onSaveClick = {
+                        navController.popBackStack()
+                    }
+                )
             }
         }
     }
