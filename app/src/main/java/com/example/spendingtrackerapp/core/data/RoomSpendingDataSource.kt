@@ -6,6 +6,7 @@ import com.example.spendingtrackerapp.core.data.mapper.toSpending
 import com.example.spendingtrackerapp.core.domain.LocalSpendingDataSource
 import com.example.spendingtrackerapp.core.domain.Spending
 import java.time.Instant
+import java.time.LocalDate
 import java.time.ZoneId
 import java.time.ZonedDateTime
 
@@ -28,11 +29,11 @@ class RoomSpendingDataSource(
 
 
     override suspend fun getAllDates(): List<ZonedDateTime> {
-        val uniqueDated = mutableSetOf<ZonedDateTime>()
+        val uniqueDated = mutableSetOf<LocalDate>()
         return dao.getAllDates()
             .map { Instant.parse(it).atZone(ZoneId.of("UTC")) }
             .filter {
-                uniqueDated.add(it)
+                uniqueDated.add(it.toLocalDate())
             }
     }
 

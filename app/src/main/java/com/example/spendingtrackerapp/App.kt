@@ -3,6 +3,7 @@ package com.example.spendingtrackerapp
 import android.app.Application
 import com.example.spendingtrackerapp.balance.di.balanceModule
 import com.example.spendingtrackerapp.core.di.coreModule
+import com.example.spendingtrackerapp.spending_details.di.spendingDetailsModule
 import com.example.spendingtrackerapp.spending_overview.di.spendingOverviewModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
@@ -14,7 +15,12 @@ class App: Application() {
 
         startKoin {
             androidContext(this@App)
-            modules(coreModule, balanceModule, spendingOverviewModule)
+            modules(
+                coreModule,
+                balanceModule,
+                spendingOverviewModule,
+                spendingDetailsModule
+            )
         }
     }
 }

@@ -79,7 +79,7 @@ fun SpendingOverviewScreenCore(
     SpendingOverviewScreen(state = viewModel.state,
         onActon = viewModel::onAction,
         onBalanceClick = { onBalanceClick() },
-        onAddSpendingClick = {},
+        onAddSpendingClick = {onAddSpendingClick()},
         onDeleteSpendingClick = {
             viewModel.onAction(SpendingOverviewAction.OnDeleteSpending(it))
         })
@@ -156,7 +156,7 @@ fun SpendingList(
         itemsIndexed(state.spendingList) { index, spending ->
             SpendingItem(
                 spending = spending,
-                onDeleteSpending = { onDeleteSpending(index) }
+                onDeleteSpending = { onDeleteSpending(spending.spendingId ?: -1) }
             )
             Spacer(modifier = Modifier.height(16.dp))
         }
@@ -228,7 +228,7 @@ fun SpendingItem(
 
         DropdownMenu(
             expanded = isDeleteShowing,
-            onDismissRequest = {isDeleteShowing = false},
+            onDismissRequest = { isDeleteShowing = false },
             offset = DpOffset(30.dp, 0.dp)
         ) {
             DropdownMenuItem(
@@ -254,7 +254,7 @@ fun SpendingInfo(
 ) {
     Row {
         Text(
-            text = "$name :",
+            text = "$name :  ",
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
             fontWeight = FontWeight.Normal,
@@ -263,7 +263,7 @@ fun SpendingInfo(
         )
 
         Text(
-            text = "$value :",
+            text = value,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
             fontWeight = FontWeight.Normal,
@@ -361,27 +361,28 @@ fun SpendingOverviewTopBar(
             overflow = TextOverflow.Ellipsis,
             color = MaterialTheme.colorScheme.primary,
         )
-    }, modifier = modifier.padding(start = 12.dp, end = 16.dp), actions = {
-        Box(
-            modifier = Modifier
-                .size(45.dp)
-                .clip(RoundedCornerShape(13.dp))
-                .border(
-                    width = 2.dp,
-                    color = MaterialTheme.colorScheme.primary.copy(0.6f),
-                    shape = RoundedCornerShape(13.dp)
+    }, modifier = modifier.padding(start = 12.dp, end = 16.dp),
+        actions = {
+            Box(
+                modifier = Modifier
+                    .size(45.dp)
+                    .clip(RoundedCornerShape(13.dp))
+                    .border(
+                        width = 2.dp,
+                        color = MaterialTheme.colorScheme.primary.copy(0.6f),
+                        shape = RoundedCornerShape(13.dp)
+                    )
+                    .background(MaterialTheme.colorScheme.primaryContainer.copy(0.3f))
+                    .clickable { onBalanceClick() }, contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = "$",
+                    fontSize = 26.sp,
+                    color = MaterialTheme.colorScheme.primary,
+                    fontWeight = FontWeight.SemiBold
                 )
-                .background(MaterialTheme.colorScheme.primaryContainer.copy(0.3f))
-                .clickable { onBalanceClick() }, contentAlignment = Alignment.Center
-        ) {
-            Text(
-                text = "$",
-                fontSize = 26.sp,
-                color = MaterialTheme.colorScheme.primary,
-                fontWeight = FontWeight.SemiBold
-            )
-        }
-    })
+            }
+        })
 
 }
 
